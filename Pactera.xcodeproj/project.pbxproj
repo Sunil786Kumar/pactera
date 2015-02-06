@@ -9,10 +9,10 @@
 /* Begin PBXBuildFile section */
 		B0DF65A31A84840F009B3338 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DF65A21A84840F009B3338 /* main.m */; };
 		B0DF65A61A84840F009B3338 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DF65A51A84840F009B3338 /* AppDelegate.m */; };
-		B0DF65A91A84840F009B3338 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DF65A81A84840F009B3338 /* ViewController.m */; };
 		B0DF65AE1A84840F009B3338 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0DF65AD1A84840F009B3338 /* Images.xcassets */; };
 		B0DF65BD1A84840F009B3338 /* PacteraTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DF65BC1A84840F009B3338 /* PacteraTests.m */; };
 		B0DF65CB1A848BD7009B3338 /* NewsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DF65CA1A848BD7009B3338 /* NewsTableViewController.m */; };
+		B0DF65CD1A848F35009B3338 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B0DF65CC1A848F35009B3338 /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,14 +31,13 @@
 		B0DF65A21A84840F009B3338 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B0DF65A41A84840F009B3338 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B0DF65A51A84840F009B3338 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		B0DF65A71A84840F009B3338 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		B0DF65A81A84840F009B3338 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		B0DF65AD1A84840F009B3338 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		B0DF65B61A84840F009B3338 /* PacteraTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PacteraTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0DF65BB1A84840F009B3338 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0DF65BC1A84840F009B3338 /* PacteraTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PacteraTests.m; sourceTree = "<group>"; };
 		B0DF65C91A848BD6009B3338 /* NewsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsTableViewController.h; sourceTree = "<group>"; };
 		B0DF65CA1A848BD7009B3338 /* NewsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsTableViewController.m; sourceTree = "<group>"; };
+		B0DF65CC1A848F35009B3338 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +61,7 @@
 		B0DF65941A84840F009B3338 = {
 			isa = PBXGroup;
 			children = (
+				B0DF65CC1A848F35009B3338 /* Default-568h@2x.png */,
 				B0DF659F1A84840F009B3338 /* Pactera */,
 				B0DF65B91A84840F009B3338 /* PacteraTests */,
 				B0DF659E1A84840F009B3338 /* Products */,
@@ -82,12 +82,10 @@
 			children = (
 				B0DF65A41A84840F009B3338 /* AppDelegate.h */,
 				B0DF65A51A84840F009B3338 /* AppDelegate.m */,
-				B0DF65A71A84840F009B3338 /* ViewController.h */,
-				B0DF65A81A84840F009B3338 /* ViewController.m */,
-				B0DF65AD1A84840F009B3338 /* Images.xcassets */,
-				B0DF65A01A84840F009B3338 /* Supporting Files */,
 				B0DF65C91A848BD6009B3338 /* NewsTableViewController.h */,
 				B0DF65CA1A848BD7009B3338 /* NewsTableViewController.m */,
+				B0DF65AD1A84840F009B3338 /* Images.xcassets */,
+				B0DF65A01A84840F009B3338 /* Supporting Files */,
 			);
 			path = Pactera;
 			sourceTree = "<group>";
@@ -199,6 +197,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0DF65AE1A84840F009B3338 /* Images.xcassets in Resources */,
+				B0DF65CD1A848F35009B3338 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,7 +216,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0DF65CB1A848BD7009B3338 /* NewsTableViewController.m in Sources */,
-				B0DF65A91A84840F009B3338 /* ViewController.m in Sources */,
 				B0DF65A61A84840F009B3338 /* AppDelegate.m in Sources */,
 				B0DF65A31A84840F009B3338 /* main.m in Sources */,
 			);

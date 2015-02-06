@@ -19,6 +19,7 @@
     // Override point for customization after application launch.
     self.window = [[[UIWindow alloc]initWithFrame:[[UIScreen mainScreen]bounds]]autorelease];
     NewsTableViewController *newsTVC = [[[NewsTableViewController alloc]init] autorelease];
+    newsTVC.view.frame = self.window.frame;
     UINavigationController *navigationController = [[[UINavigationController alloc] initWithRootViewController:newsTVC] autorelease];
     self.window.rootViewController = navigationController;
     [self.window makeKeyAndVisible];
