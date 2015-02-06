@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-
+#import "NewsTableViewController.h"
 @interface AppDelegate ()
 
 @end
@@ -17,6 +17,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    self.window = [[[UIWindow alloc]initWithFrame:[[UIScreen mainScreen]bounds]]autorelease];
+    NewsTableViewController *newsTVC = [[[NewsTableViewController alloc]init] autorelease];
+    UINavigationController *navigationController = [[[UINavigationController alloc] initWithRootViewController:newsTVC] autorelease];
+    self.window.rootViewController = navigationController;
+    [self.window makeKeyAndVisible];
+
     return YES;
 }
 
