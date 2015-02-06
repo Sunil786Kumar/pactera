@@ -10,4 +10,8 @@
 
 @interface NewsCell : UITableViewCell
 
+@property (nonatomic,unsafe_unretained) UILabel *newsHeaderLabel;
+@property (nonatomic,unsafe_unretained) UILabel *newsSubLabel;
+@property (nonatomic,unsafe_unretained) UIImageView *newsImageView;
+
 @end

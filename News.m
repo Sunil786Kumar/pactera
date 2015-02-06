@@ -16,17 +16,9 @@ static News *news = nil;
 +(News *)sharedInstance
 {
     if (news == nil) {
-        news = [[[News alloc]init]autorelease];
+        news = [[News alloc]init];
     }
     return news;
 }
--(void)setRows:(NSArray *)rows
-{
-    _rows = rows;
-    //data is ready, show it on view- notify controller
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_PARSING_COMPLETED
-                                                        object:nil
-                                                      userInfo:nil];
-    
-}
+
 @end

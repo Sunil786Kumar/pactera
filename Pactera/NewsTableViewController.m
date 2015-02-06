@@ -12,7 +12,7 @@
 #import "News.h"
 #import "NewsCell.h"
 
-@interface NewsTableViewController ()
+@interface NewsTableViewController ()<UITableViewDataSource,UITabBarDelegate>
 
 @end
 
@@ -20,8 +20,12 @@
 
 - (void)viewDidLoad
 {
-    //[self manageNotifications];
-    //[self startDownloadingNews];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    
+    [self registerCell];
+    [self manageNotifications];
+    [self startDownloadingNews];
     [super viewDidLoad];
     
 }
@@ -35,69 +39,44 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return 2;
+    return [[News sharedInstance].rows count];
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *cellIdentifier = @"newsCellIdentifier";
+    static NSString *cellIdentifier = NEWS_CELL_IDENTIFIER;
     NewsCell *cell = (NewsCell *) [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     
     if(cell ==  nil){
-        cell = [[[NewsCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier]autorelease];
+        NSLog(@"Loading");
+        cell = [[NewsCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
+        
+
     }
+    NSDictionary *news = [[News sharedInstance].rows objectAtIndex:indexPath.row];
     
-    // Configure the cell...
+    if(![[news objectForKey:TITLE_KEY] isEqual:[NSNull null]])
+       cell.newsHeaderLabel.text = [news objectForKey:TITLE_KEY];
+    if(![[news objectForKey:DESCRIPTION_KEY] isEqual:[NSNull null]])
+        cell.newsSubLabel.text = [news objectForKey:DESCRIPTION_KEY];
+   
+    
     
     return cell;
 }
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"height");
+    return 90;
 }
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 #pragma mark - Helper methods
+
+-(void)registerCell
+{
+    [self.tableView registerClass:[NewsCell class] forCellReuseIdentifier:NEWS_CELL_IDENTIFIER];
+}
+
 -(void)startDownloadingNews
 {
     [[ConnectionManager sharedInstance]downloadNewsAtURL:[NSURL URLWithString:NEWS_URL]];
@@ -115,5 +94,6 @@
 {
     NSLog(@"Rows : %@",[News sharedInstance].rows);
     NSLog(@"reload data");
+    [self.tableView reloadData];
 }
 @end

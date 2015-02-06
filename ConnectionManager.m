@@ -53,7 +53,14 @@ static ConnectionManager *connectionManager = nil;
                    
                     NSLog(@"Json : %@",[json objectForKey:@"title"]);
                     NSLog(@"Json row : %@",[[json objectForKey:@"rows"]objectAtIndex:0]);
-                    
+                
+                     dispatch_async(dispatch_get_main_queue(), ^{
+                         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_PARSING_COMPLETED
+                                                                             object:nil
+                                                                           userInfo:nil];
+
+                     });
+                                    
                 }
             }] resume];
 }
