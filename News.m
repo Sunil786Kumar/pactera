@@ -7,6 +7,7 @@
 //
 
 #import "News.h"
+#import "Constants.h"
 
 static News *news = nil;
 
@@ -22,6 +23,10 @@ static News *news = nil;
 -(void)setRows:(NSArray *)rows
 {
     _rows = rows;
-    //data is ready, show it on view
+    //data is ready, show it on view- notify controller
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_PARSING_COMPLETED
+                                                        object:nil
+                                                      userInfo:nil];
+    
 }
 @end

@@ -8,6 +8,7 @@
 
 #import "ConnectionManager.h"
 #import "News.h"
+#import "Constants.h"
 
 static ConnectionManager *connectionManager = nil;
 
@@ -47,8 +48,8 @@ static ConnectionManager *connectionManager = nil;
                     NSData *data = [serverResponse dataUsingEncoding:NSUTF8StringEncoding];
                     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
                    
-                    [News sharedInstance].title = [json objectForKey:@"title"];
-                    [News sharedInstance].rows  = [json objectForKey:@"rows"];
+                    [News sharedInstance].title = [json objectForKey:TITLE_KEY];
+                    [News sharedInstance].rows  = [json objectForKey:ROWS_KEY];
                    
                     NSLog(@"Json : %@",[json objectForKey:@"title"]);
                     NSLog(@"Json row : %@",[[json objectForKey:@"rows"]objectAtIndex:0]);

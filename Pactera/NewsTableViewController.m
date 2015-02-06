@@ -9,6 +9,7 @@
 #import "NewsTableViewController.h"
 #import "ConnectionManager.h"
 #import "Constants.h"
+#import "News.h"
 
 @interface NewsTableViewController ()
 
@@ -17,6 +18,7 @@
 @implementation NewsTableViewController
 
 - (void)viewDidLoad {
+    [self manageNotifications];
     [self startDownloadingNews];
     [super viewDidLoad];
     
@@ -104,5 +106,19 @@
 -(void)startDownloadingNews
 {
     [[ConnectionManager sharedInstance]downloadNewsAtURL:[NSURL URLWithString:NEWS_URL]];
+}
+#pragma mark - Helper methods
+-(void)manageNotifications
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(dataParsingFinished:)
+                                                 name:NOTIFICATION_PARSING_COMPLETED
+                                               object:nil];
+    
+}
+-(void)dataParsingFinished:(NSNotification *)notification
+{
+    NSLog(@"Rows : %@",[News sharedInstance].rows);
+    NSLog(@"reload data");
 }
 @end
