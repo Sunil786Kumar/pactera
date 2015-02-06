@@ -7,6 +7,8 @@
 //
 
 #import "NewsTableViewController.h"
+#import "ConnectionManager.h"
+#import "Constants.h"
 
 @interface NewsTableViewController ()
 
@@ -101,6 +103,6 @@
 #pragma mark - Helper methods
 -(void)startDownloadingNews
 {
-    
+    [[ConnectionManager sharedInstance]downloadNewsAtURL:[NSURL URLWithString:NEWS_URL]];
 }
 @end

@@ -10,4 +10,8 @@
 
 @interface ConnectionManager : NSObject
 
++(ConnectionManager *)sharedInstance;
+
+-(void)downloadNewsAtURL:(NSURL *)url;
+
 @end

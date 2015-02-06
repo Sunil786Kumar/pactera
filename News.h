@@ -1,5 +1,5 @@
 //
-//  Constants.h
+//  News.h
 //  Pactera
 //
 //  Created by Sunil Kumar on 6/02/2015.
@@ -8,8 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Constants : NSObject
+@interface News : NSObject
 
-#define NEWS_URL @"https://dl.dropboxusercontent.com/u/746330/facts.json" 
 
 @end

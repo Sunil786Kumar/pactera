@@ -8,6 +8,53 @@
 
 #import "ConnectionManager.h"
 
-@implementation ConnectionManager
+static ConnectionManager *connectionManager = nil;
+
+@interface ConnectionManager()
+
+@property (retain, nonatomic) NSArray *news;
 
 @end
+
+@implementation ConnectionManager
+
++(ConnectionManager *)sharedInstance
+{
+    if (connectionManager == nil) {
+        connectionManager = [[ConnectionManager alloc]init];
+    }
+    return connectionManager;
+}
+
+-(void)downloadNewsAtURL:(NSURL *)url
+{
+    NSURLSession *session = [NSURLSession sharedSession];
+    [[session dataTaskWithURL:url
+            completionHandler:^(NSData *data,
+                                NSURLResponse *response,
+                                NSError *error) {
+                
+                //check if the parse is success
+                NSObject *object = [NSJSONSerialization JSONObjectWithData:data
+                                                                   options:kNilOptions
+                                                                     error:&error];
+                
+                if (object == nil) {//if not
+                    //convert it to string
+                    NSString *serverResponse = [[NSString alloc] initWithData:data
+                                                                     encoding:NSASCIIStringEncoding];
+                    //back to NSData and parse data to be a Dictionary
+                    NSData *data = [serverResponse dataUsingEncoding:NSUTF8StringEncoding];
+                    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+                   
+                    NSLog(@"Json : %@",[json objectForKey:@"title"]);
+                    NSLog(@"Json row : %@",[[json objectForKey:@"rows"]objectAtIndex:0]);
+                    
+                }
+                
+                
+               
+            }] resume];
+}
+@end
+
