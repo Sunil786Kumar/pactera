@@ -8,6 +8,20 @@
 
 #import "News.h"
 
+static News *news = nil;
+
 @implementation News
 
++(News *)sharedInstance
+{
+    if (news == nil) {
+        news = [[News alloc]init];
+    }
+    return news;
+}
+-(void)setRows:(NSArray *)rows
+{
+    _rows = rows;
+    //data is ready, show it on view
+}
 @end
