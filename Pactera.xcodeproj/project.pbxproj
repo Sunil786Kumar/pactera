@@ -15,6 +15,7 @@
 		B0DF65CD1A848F35009B3338 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B0DF65CC1A848F35009B3338 /* Default-568h@2x.png */; };
 		B0DF65D61A849190009B3338 /* ConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DF65D51A849190009B3338 /* ConnectionManager.m */; };
 		B0DF65D91A8492D6009B3338 /* News.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DF65D81A8492D6009B3338 /* News.m */; };
+		B0DF65DE1A84C408009B3338 /* NewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DF65DD1A84C408009B3338 /* NewsCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +46,8 @@
 		B0DF65D51A849190009B3338 /* ConnectionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectionManager.m; sourceTree = "<group>"; };
 		B0DF65D71A8492D6009B3338 /* News.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = News.h; sourceTree = "<group>"; };
 		B0DF65D81A8492D6009B3338 /* News.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = News.m; sourceTree = "<group>"; };
+		B0DF65DC1A84C408009B3338 /* NewsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsCell.h; sourceTree = "<group>"; };
+		B0DF65DD1A84C408009B3338 /* NewsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +71,7 @@
 		B0DF65941A84840F009B3338 = {
 			isa = PBXGroup;
 			children = (
+				B0DF65DB1A84C3EB009B3338 /* View */,
 				B0DF65DA1A8492DD009B3338 /* Modal */,
 				B0DF65D31A849179009B3338 /* Util */,
 				B0DF65CE1A848F8C009B3338 /* Constants */,
@@ -150,6 +154,15 @@
 				B0DF65D81A8492D6009B3338 /* News.m */,
 			);
 			name = Modal;
+			sourceTree = "<group>";
+		};
+		B0DF65DB1A84C3EB009B3338 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B0DF65DC1A84C408009B3338 /* NewsCell.h */,
+				B0DF65DD1A84C408009B3338 /* NewsCell.m */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -253,6 +266,7 @@
 			files = (
 				B0DF65D91A8492D6009B3338 /* News.m in Sources */,
 				B0DF65CB1A848BD7009B3338 /* NewsTableViewController.m in Sources */,
+				B0DF65DE1A84C408009B3338 /* NewsCell.m in Sources */,
 				B0DF65D61A849190009B3338 /* ConnectionManager.m in Sources */,
 				B0DF65A61A84840F009B3338 /* AppDelegate.m in Sources */,
 				B0DF65A31A84840F009B3338 /* main.m in Sources */,

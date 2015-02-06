@@ -16,7 +16,7 @@ static News *news = nil;
 +(News *)sharedInstance
 {
     if (news == nil) {
-        news = [[News alloc]init];
+        news = [[[News alloc]init]autorelease];
     }
     return news;
 }
