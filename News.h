@@ -13,5 +13,7 @@
 @property (retain, nonatomic) NSString *title;
 @property (retain, nonatomic) NSArray *rows;
 
+-(void)flushData;
+
 +(News *)sharedInstance;
 @end

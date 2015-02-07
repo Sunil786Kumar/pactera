@@ -20,5 +20,9 @@ static News *news = nil;
     }
     return news;
 }
-
+-(void)flushData
+{
+    self.rows = nil;
+    self.title = nil;
+}
 @end

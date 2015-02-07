@@ -14,6 +14,8 @@
 
 @interface NewsTableViewController ()
 @property (nonatomic,strong) NSCache *imageCache;
+@property (nonatomic,unsafe_unretained) UIBarButtonItem *barButton;
+@property (nonatomic,unsafe_unretained) UIActivityIndicatorView *activityIndicator;
 
 @end
 
@@ -28,11 +30,6 @@
     [self manageNotifications];
     [self startDownloadingNews];
     [super viewDidLoad];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source
@@ -93,7 +90,6 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"height");
     return 90;
 }
 #pragma mark - Helper methods
@@ -105,6 +101,10 @@
 
 -(void)startDownloadingNews
 {
+    self.activityIndicator = [[[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray]autorelease];
+    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc]initWithCustomView:self.activityIndicator]autorelease];
+    [self.activityIndicator startAnimating];
+
     [[ConnectionManager sharedInstance]downloadNewsAtURL:[NSURL URLWithString:NEWS_URL]];
 }
 #pragma mark - Helper methods
@@ -118,6 +118,12 @@
 }
 -(void)dataParsingFinished:(NSNotification *)notification
 {
+    [self.activityIndicator stopAnimating];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"Refresh"
+                                                                            style:UIBarButtonItemStylePlain
+                                                                           target:self
+                                                                           action:@selector(startDownloadingNews)];
+    self.title = [News sharedInstance].title;
     [self.tableView reloadData];
 }
 @end

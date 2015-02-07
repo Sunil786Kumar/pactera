@@ -48,6 +48,7 @@ static ConnectionManager *connectionManager = nil;
                     NSData *data = [serverResponse dataUsingEncoding:NSUTF8StringEncoding];
                     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
                    
+                    [[News sharedInstance] flushData];
                     [News sharedInstance].title = [json objectForKey:TITLE_KEY];
                     [News sharedInstance].rows  = [json objectForKey:ROWS_KEY];
                 
@@ -58,7 +59,6 @@ static ConnectionManager *connectionManager = nil;
                                                                            userInfo:nil];
 
                      });
-                                    
                 }
             }] resume];
 }
