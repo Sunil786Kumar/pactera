@@ -49,6 +49,8 @@
     }
     
     cell.newsImageView.image = nil;
+    cell.newsHeaderLabel.text = nil;
+    cell.newsSubLabel.text = nil;
     
     NSDictionary *news = [[News sharedInstance].rows objectAtIndex:indexPath.row];
     
@@ -90,7 +92,30 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 90;
+    NSDictionary *news = [[News sharedInstance].rows objectAtIndex:indexPath.row];
+    
+    NSString *header = [news objectForKey:TITLE_KEY];
+    NSLog(@"header : %@",header);
+    
+    NSString *subHeader = [news objectForKey:DESCRIPTION_KEY];
+    
+    if(![subHeader isEqual:[NSNull null]])
+    {
+        UILabel *label = [[[UILabel alloc]init]autorelease];
+        label.frame = CGRectMake(0, 0, 150, 100);
+        label.textAlignment = NSTextAlignmentLeft;
+        label.lineBreakMode = NSLineBreakByWordWrapping;
+        label.numberOfLines = 0;
+        label.font = [UIFont fontWithName:@"Helvetica" size:14.0f];
+        label.text = subHeader;
+        [label sizeToFit];
+        NSLog(@"Height : %f",label.frame.size.height);
+        return label.frame.size.height + 50;
+    }
+    else
+        return 90;
+    
+    //return 90;
 }
 #pragma mark - Helper methods
 
