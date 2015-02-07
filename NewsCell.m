@@ -41,15 +41,6 @@
     CGRect contentRect = self.contentView.bounds;
     CGFloat boundsX = contentRect.origin.x;
     
-//    if(self.newsImageView.image)
-//    {
-//        self.imageView.frame = CGRectMake(boundsX+10 ,5, 50, 50);;
-//    }
-//    else
-//    {
-//        self.imageView.frame = CGRectMake(0, 0, 0, 0);
-//    }
-    
     CGRect frame;
     
     //Coordinates of Header Label
@@ -60,9 +51,6 @@
     frame= CGRectMake(headerX ,2, headerWidth, headerHeight);
     self.newsHeaderLabel.frame = frame;
     
-    //Coordinates of image view
-    
-    
     //Coordinates of Sub Label
     CGFloat subHeaderX = boundsX + 15;
     CGFloat subHeaderWidth = contentRect.size.width - subHeaderX - contentRect.size.width/3;
@@ -70,6 +58,11 @@
     
     frame= CGRectMake(subHeaderX ,headerHeight + 2 , subHeaderWidth, subHeaderHeight);
     self.newsSubLabel.frame = frame;
+    
+    //Coordinates of image view
+    CGFloat imageViewX = subHeaderWidth + 5;
+    frame = CGRectMake(imageViewX, headerHeight + 2, 44, 44);
+    self.newsImageView.frame = frame;
     
     [super layoutSubviews];
 }
