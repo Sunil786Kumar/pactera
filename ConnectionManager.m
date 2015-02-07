@@ -42,18 +42,16 @@ static ConnectionManager *connectionManager = nil;
                 
                 if (object == nil) {//if not
                     //convert it to string
-                    NSString *serverResponse = [[NSString alloc] initWithData:data
-                                                                     encoding:NSASCIIStringEncoding];
+                    NSString *serverResponse = [[[NSString alloc] initWithData:data
+                                                                     encoding:NSASCIIStringEncoding] autorelease];
                     //back to NSData and parse data to be a Dictionary
                     NSData *data = [serverResponse dataUsingEncoding:NSUTF8StringEncoding];
                     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
                    
                     [News sharedInstance].title = [json objectForKey:TITLE_KEY];
                     [News sharedInstance].rows  = [json objectForKey:ROWS_KEY];
-                   
-                    NSLog(@"Json : %@",[json objectForKey:@"title"]);
-                    NSLog(@"Json row : %@",[[json objectForKey:@"rows"]objectAtIndex:0]);
                 
+                    //updating UI , come back to main thread
                      dispatch_async(dispatch_get_main_queue(), ^{
                          [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_PARSING_COMPLETED
                                                                              object:nil

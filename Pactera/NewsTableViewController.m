@@ -38,7 +38,6 @@
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
     return [[News sharedInstance].rows count];
 }
 
@@ -49,9 +48,9 @@
     NewsCell *cell = (NewsCell *) [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     
     if(cell ==  nil){
-        NSLog(@"Loading");
-        cell = [[NewsCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
+        cell = [[[NewsCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier] autorelease];
     }
+    
     cell.newsImageView.image = nil;
     
     NSDictionary *news = [[News sharedInstance].rows objectAtIndex:indexPath.row];
@@ -75,15 +74,16 @@
             dispatch_queue_t downloadQueue = dispatch_queue_create("downloadImage", NULL);
             dispatch_async(downloadQueue, ^{
                 NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[news objectForKey:IMAGE_KEY]]];
-                if(imageData){
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    NewsCell *cell = (NewsCell *)[tableView cellForRowAtIndexPath:indexPath];
-                    
-                    cell.newsImageView.image=[UIImage imageWithData:imageData];
-                    if(![[news objectForKey:IMAGE_KEY] isEqual:[NSNull null]])
-                    [self.imageCache setObject:[UIImage imageWithData:imageData] forKey:[news objectForKey:IMAGE_KEY]];//Cache the images
-                    [cell setNeedsLayout];
-                });
+               
+                if(imageData) // image does exist?
+                {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        NewsCell *cell = (NewsCell *)[tableView cellForRowAtIndexPath:indexPath]; // get the correct cell
+                        cell.newsImageView.image=[UIImage imageWithData:imageData];
+                        if(![[news objectForKey:IMAGE_KEY] isEqual:[NSNull null]]) //dont want to cache Null
+                            [self.imageCache setObject:[UIImage imageWithData:imageData] forKey:[news objectForKey:IMAGE_KEY]];//Cache the images
+                        [cell setNeedsLayout];
+                    });
                 }
             });
         }
@@ -118,8 +118,6 @@
 }
 -(void)dataParsingFinished:(NSNotification *)notification
 {
-    NSLog(@"Rows : %@",[News sharedInstance].rows);
-    NSLog(@"reload data");
     [self.tableView reloadData];
 }
 @end
