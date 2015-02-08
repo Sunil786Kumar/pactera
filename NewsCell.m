@@ -18,7 +18,9 @@
         
         self.newsHeaderLabel = [[[UILabel alloc]init]autorelease];
         self.newsHeaderLabel.textAlignment = NSTextAlignmentLeft;
-        self.newsHeaderLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14.0f];
+        self.newsHeaderLabel.font = [UIFont fontWithName:@"Helvetica" size:14.0f];
+        self.newsHeaderLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        self.newsHeaderLabel.numberOfLines = 0;
         self.newsHeaderLabel.textColor = [UIColor blueColor];
         
         self.newsSubLabel = [[[UILabel alloc]init]autorelease];
@@ -78,13 +80,8 @@
     
     // Configure the view for the selected state
 }
+
 @end
 
 
-/*
- CGRect currentFrame = myLabel.frame;
- CGSize max = CGSizeMake(myLabel.frame.size.width, 500);
- CGSize expected = [myString sizeWithFont:myLabel.font constrainedToSize:max lineBreakMode:myLabel.lineBreakMode];
- currentFrame.size.height = expected.height;
- myLabel.frame = currentFrame;
- */
+

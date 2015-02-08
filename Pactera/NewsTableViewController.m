@@ -16,6 +16,7 @@
 @property (nonatomic,strong) NSCache *imageCache;
 @property (nonatomic,unsafe_unretained) UIBarButtonItem *barButton;
 @property (nonatomic,unsafe_unretained) UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, unsafe_unretained) NewsCell *newsCell;
 
 @end
 
@@ -92,38 +93,76 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    self.newsCell = [self.tableView dequeueReusableCellWithIdentifier:NEWS_CELL_IDENTIFIER];
+   
+    CGRect contentRect = self.newsCell.bounds;
+    CGFloat boundsX = contentRect.origin.x;
+    
     NSDictionary *news = [[News sharedInstance].rows objectAtIndex:indexPath.row];
     
     NSString *header = [news objectForKey:TITLE_KEY];
-    NSLog(@"header : %@",header);
-    
     NSString *subHeader = [news objectForKey:DESCRIPTION_KEY];
+    NSString *imageUrl = [news objectForKey:IMAGE_KEY];
+    
+    if([imageUrl isEqual:[NSNull null]] && [header isEqual:[NSNull null]] && [subHeader isEqual:[NSNull null]])
+    {
+        return  0;
+    }
+   
+    float headerHeight = 0;
+  
+    //get the height required by the cell based on text.
+    //refactoring required - not the best approach to do it. need to look at native apis sizeToFit etc.
+    
+    if(![header isEqual:[NSNull null]])
+    {
+        UILabel *headerLabel = [[[UILabel alloc]init]autorelease];
+        CGFloat headerX = boundsX + 15;
+        CGFloat headerWidth = contentRect.size.width - headerX;
+        headerLabel.frame = CGRectMake(headerX, 0, headerWidth, 20);//random height
+        headerLabel.text = header;
+        headerLabel.textAlignment = NSTextAlignmentLeft;
+        headerLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        headerLabel.numberOfLines = 0;
+        headerLabel.font = [UIFont fontWithName:@"Helvetica" size:14.0f];
+        [headerLabel sizeToFit];
+        headerHeight = headerLabel.frame.size.height +4 ;
+    }
+    else
+    {
+        headerHeight = 4;
+    }
     
     if(![subHeader isEqual:[NSNull null]])
     {
-        UILabel *label = [[[UILabel alloc]init]autorelease];
-        label.frame = CGRectMake(0, 0, 150, 100);
-        label.textAlignment = NSTextAlignmentLeft;
-        label.lineBreakMode = NSLineBreakByWordWrapping;
-        label.numberOfLines = 0;
-        label.font = [UIFont fontWithName:@"Helvetica" size:14.0f];
-        label.text = subHeader;
-        [label sizeToFit];
-        NSLog(@"Height : %f",label.frame.size.height);
-        return label.frame.size.height + 50;
+        UILabel *subHeaderLabel = [[[UILabel alloc]init]autorelease];
+        CGFloat subHeaderX = boundsX + 15;
+        CGFloat subHeaderWidth = contentRect.size.width - subHeaderX - contentRect.size.width/3;
+        subHeaderLabel.frame = CGRectMake(0 ,0 , subHeaderWidth, 20); //random height
+        subHeaderLabel.text = subHeader;
+        subHeaderLabel.textAlignment = NSTextAlignmentLeft;
+        subHeaderLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        subHeaderLabel.numberOfLines = 0;
+        subHeaderLabel.font = [UIFont fontWithName:@"Helvetica" size:14.0f];
+        [subHeaderLabel sizeToFit];
+        
+        if(subHeaderLabel.frame.size.height < 44)
+            return subHeaderLabel.frame.size.height + headerHeight + (44 - subHeaderLabel.frame.size.height) + 5;
+        
+        return subHeaderLabel.frame.size.height + headerHeight + 35 ;// + 35;
     }
-    else
-        return 90;
     
-    //return 90;
+    else
+        return headerHeight + self.newsCell.newsImageView.frame.size.height;
 }
-#pragma mark - Helper methods
 
+#pragma mark - Helper methods
 -(void)registerCell
 {
     [self.tableView registerClass:[NewsCell class] forCellReuseIdentifier:NEWS_CELL_IDENTIFIER];
 }
 
+//display activity indicator while data is getting downloaded
 -(void)startDownloadingNews
 {
     self.activityIndicator = [[[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray]autorelease];
@@ -133,6 +172,7 @@
     [[ConnectionManager sharedInstance]downloadNewsAtURL:[NSURL URLWithString:NEWS_URL]];
 }
 #pragma mark - Helper methods
+//get notified after parsing is done
 -(void)manageNotifications
 {
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -144,11 +184,13 @@
 -(void)dataParsingFinished:(NSNotification *)notification
 {
     [self.activityIndicator stopAnimating];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"Refresh"
+    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc]initWithTitle:@"Refresh"
                                                                             style:UIBarButtonItemStylePlain
                                                                            target:self
-                                                                           action:@selector(startDownloadingNews)];
+                                                                           action:@selector(startDownloadingNews)] autorelease];
     self.title = [News sharedInstance].title;
     [self.tableView reloadData];
 }
 @end
+
+
