@@ -7,6 +7,7 @@
 //
 
 #import "NewsCell.h"
+#import "Constants.h"
 
 @implementation NewsCell
 
@@ -26,9 +27,9 @@
         self.newsSubLabel = [[[UILabel alloc]init]autorelease];
         self.newsSubLabel.textAlignment = NSTextAlignmentLeft;
         self.newsSubLabel.font = [UIFont fontWithName:@"Helvetica" size:14.0f];
-        self.newsSubLabel.lineBreakMode = NSLineBreakByWordWrapping;
         self.newsSubLabel.numberOfLines = 0;
-       
+        self.newsSubLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        
         self.newsImageView = [[[UIImageView alloc]init]autorelease];
         
         [self.contentView addSubview:self.newsHeaderLabel];
@@ -42,25 +43,29 @@
 
 -(void)layoutSubviews
 {
+    [super layoutSubviews];
+    
     CGRect contentRect = self.contentView.bounds;
     CGFloat boundsX = contentRect.origin.x;
     
     CGRect frame;
    
+    [self.newsSubLabel setNeedsDisplay];
+    
     [self.newsHeaderLabel sizeToFit];
     [self.newsSubLabel sizeToFit];
     
     //Coordinates of Header Label
     CGFloat headerX = boundsX + 15;
     CGFloat headerWidth = contentRect.size.width - headerX;
-    CGFloat headerHeight = self.newsHeaderLabel.frame.size.height;  //25;
+    CGFloat headerHeight = self.newsHeaderLabel.frame.size.height;
     frame= CGRectMake(headerX ,2, headerWidth, headerHeight);
     self.newsHeaderLabel.frame = frame;
     
     //Coordinates of Sub Label
     CGFloat subHeaderX = boundsX + 15;
     CGFloat subHeaderWidth = contentRect.size.width - subHeaderX - contentRect.size.width/3;
-    CGFloat subHeaderHeight = self.newsSubLabel.frame.size.height;//55;
+    CGFloat subHeaderHeight = self.newsSubLabel.frame.size.height;
     frame= CGRectMake(subHeaderX ,headerHeight + 2 , subHeaderWidth, subHeaderHeight);
     self.newsSubLabel.frame = frame;
     
@@ -68,9 +73,9 @@
     CGFloat imageViewX = subHeaderWidth + 25;
     frame = CGRectMake(imageViewX, headerHeight + 2, 44, 44);
     self.newsImageView.frame = frame;
-    
-    [super layoutSubviews];
 }
+
+
 - (void)awakeFromNib {
     // Initialization code
 }

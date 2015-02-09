@@ -56,10 +56,9 @@
     NSDictionary *news = [[News sharedInstance].rows objectAtIndex:indexPath.row];
     
     if(![[news objectForKey:TITLE_KEY] isEqual:[NSNull null]])
-       cell.newsHeaderLabel.text = [news objectForKey:TITLE_KEY];
+        cell.newsHeaderLabel.text = [news objectForKey:TITLE_KEY];
     if(![[news objectForKey:DESCRIPTION_KEY] isEqual:[NSNull null]])
         cell.newsSubLabel.text = [news objectForKey:DESCRIPTION_KEY];
-    
     
     if(![[news objectForKey:IMAGE_KEY] isEqual:[NSNull null]])
     {
