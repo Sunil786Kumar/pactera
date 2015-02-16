@@ -94,7 +94,7 @@
                 }
             });
         }
-        [cell layoutIfNeeded]; // fixed the bug where only first line was displayed on UILabel
+        [cell layoutIfNeeded]; // fixed the bug where only first line was displayed on UILabel.
     }
     
     return cell;
@@ -202,6 +202,11 @@
     self.title = [News sharedInstance].title;
     [self.tableView reloadData];
 }
+-(void)dealloc
+{
+    [super dealloc];
+}
+
 @end
 
 

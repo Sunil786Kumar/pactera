@@ -40,7 +40,6 @@ static ConnectionManager *connectionManager = nil;
                 NSObject *object = [NSJSONSerialization JSONObjectWithData:data
                                                                    options:kNilOptions
                                                                      error:&error];
-                NSLog(@"Error : %@",[error description]);
                 
                 if (object == nil) {//if not
                     //convert it to string

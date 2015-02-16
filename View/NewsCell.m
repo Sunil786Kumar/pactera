@@ -49,8 +49,6 @@
     CGFloat boundsX = contentRect.origin.x;
     
     CGRect frame;
-   
-    
     
     [self.newsHeaderLabel sizeToFit];
     [self.newsSubLabel sizeToFit];
