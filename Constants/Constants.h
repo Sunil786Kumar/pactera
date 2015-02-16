@@ -31,4 +31,8 @@
 //notify controller , data is ready to be displayed
 #define NOTIFICATION_PARSING_COMPLETED @"finished parsing downloaded data"
 
+
+#pragma mark - Macro
+
+#define RGB(r, g, b) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1] 
 @end

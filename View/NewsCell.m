@@ -22,7 +22,7 @@
         self.newsHeaderLabel.font = [UIFont fontWithName:@"Helvetica" size:14.0f];
         self.newsHeaderLabel.lineBreakMode = NSLineBreakByWordWrapping;
         self.newsHeaderLabel.numberOfLines = 0;
-        self.newsHeaderLabel.textColor = [UIColor blueColor];
+        self.newsHeaderLabel.textColor = RGB(41, 86, 115);
         
         self.newsSubLabel = [[[UILabel alloc]init]autorelease];
         self.newsSubLabel.textAlignment = NSTextAlignmentLeft;
