@@ -50,7 +50,7 @@
     
     CGRect frame;
    
-    [self.newsSubLabel setNeedsDisplay];
+    
     
     [self.newsHeaderLabel sizeToFit];
     [self.newsSubLabel sizeToFit];
@@ -73,6 +73,9 @@
     CGFloat imageViewX = subHeaderWidth + 25;
     frame = CGRectMake(imageViewX, headerHeight + 2, 44, 44);
     self.newsImageView.frame = frame;
+    
+    
+    [self.newsSubLabel setNeedsDisplay];
 }
 
 

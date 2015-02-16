@@ -27,8 +27,11 @@
     if(!self.imageCache)
         self.imageCache = [[[NSCache alloc]init]autorelease];
     
+    //register cell
     [self registerCell];
+    //set up notfication
     [self manageNotifications];
+    //all set, download news
     [self startDownloadingNews];
     [super viewDidLoad];
 }
@@ -48,7 +51,7 @@
     if(cell ==  nil){
         cell = [[[NewsCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier] autorelease];
     }
-    
+    //clean cell
     cell.newsImageView.image = nil;
     cell.newsHeaderLabel.text = nil;
     cell.newsSubLabel.text = nil;
@@ -56,9 +59,14 @@
     NSDictionary *news = [[News sharedInstance].rows objectAtIndex:indexPath.row];
     
     if(![[news objectForKey:TITLE_KEY] isEqual:[NSNull null]])
+    {
         cell.newsHeaderLabel.text = [news objectForKey:TITLE_KEY];
+        
+    }
     if(![[news objectForKey:DESCRIPTION_KEY] isEqual:[NSNull null]])
+    {
         cell.newsSubLabel.text = [news objectForKey:DESCRIPTION_KEY];
+    }
     
     if(![[news objectForKey:IMAGE_KEY] isEqual:[NSNull null]])
     {
@@ -81,11 +89,12 @@
                         cell.newsImageView.image=[UIImage imageWithData:imageData];
                         if(![[news objectForKey:IMAGE_KEY] isEqual:[NSNull null]]) //dont want to cache Null
                             [self.imageCache setObject:[UIImage imageWithData:imageData] forKey:[news objectForKey:IMAGE_KEY]];//Cache the images
-                        [cell setNeedsLayout];
+                        [cell setNeedsLayout]; // redraw the cell
                     });
                 }
             });
         }
+        [cell layoutIfNeeded]; // fixed the bug where only first line was displayed on UILabel
     }
     
     return cell;
@@ -103,6 +112,7 @@
     NSString *subHeader = [news objectForKey:DESCRIPTION_KEY];
     NSString *imageUrl = [news objectForKey:IMAGE_KEY];
     
+    //if no content is available, return 0 for the height, do not display blank row
     if([imageUrl isEqual:[NSNull null]] && [header isEqual:[NSNull null]] && [subHeader isEqual:[NSNull null]])
     {
         return  0;
@@ -156,6 +166,7 @@
 }
 
 #pragma mark - Helper methods
+//register the cell for tableview
 -(void)registerCell
 {
     [self.tableView registerClass:[NewsCell class] forCellReuseIdentifier:NEWS_CELL_IDENTIFIER];
@@ -180,6 +191,7 @@
                                                object:nil];
     
 }
+//update UI once news are downloaded
 -(void)dataParsingFinished:(NSNotification *)notification
 {
     [self.activityIndicator stopAnimating];
