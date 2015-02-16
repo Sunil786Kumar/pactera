@@ -20,6 +20,7 @@ static News *news = nil;
     }
     return news;
 }
+//clear all the previous news before refreshing
 -(void)flushData
 {
     self.rows = nil;

@@ -34,11 +34,13 @@ static ConnectionManager *connectionManager = nil;
             completionHandler:^(NSData *data,
                                 NSURLResponse *response,
                                 NSError *error) {
+              
                 
                 //check if the parse is success
                 NSObject *object = [NSJSONSerialization JSONObjectWithData:data
                                                                    options:kNilOptions
                                                                      error:&error];
+                NSLog(@"Error : %@",[error description]);
                 
                 if (object == nil) {//if not
                     //convert it to string
@@ -47,7 +49,8 @@ static ConnectionManager *connectionManager = nil;
                     //back to NSData and parse data to be a Dictionary
                     NSData *data = [serverResponse dataUsingEncoding:NSUTF8StringEncoding];
                     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-                   
+                
+                    
                     [[News sharedInstance] flushData];
                     [News sharedInstance].title = [json objectForKey:TITLE_KEY];
                     [News sharedInstance].rows  = [json objectForKey:ROWS_KEY];

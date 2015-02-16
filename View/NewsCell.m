@@ -40,7 +40,7 @@
     return self;
 }
 
-
+// set up the coordinates of the UI elements
 -(void)layoutSubviews
 {
     [super layoutSubviews];

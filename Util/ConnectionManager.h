@@ -6,6 +6,10 @@
 //  Copyright (c) 2015 Sunil Kumar. All rights reserved.
 //
 
+/*
+ Connects the app with the backend
+ */
+
 #import <Foundation/Foundation.h>
 
 @interface ConnectionManager : NSObject
