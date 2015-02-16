@@ -67,6 +67,7 @@
     {
         cell.newsSubLabel.text = [news objectForKey:DESCRIPTION_KEY];
     }
+    [cell layoutIfNeeded]; // fixed the bug where only first line was displayed on UILabel.
     
     if(![[news objectForKey:IMAGE_KEY] isEqual:[NSNull null]])
     {
@@ -94,7 +95,7 @@
                 }
             });
         }
-        [cell layoutIfNeeded]; // fixed the bug where only first line was displayed on UILabel.
+        
     }
     
     return cell;
